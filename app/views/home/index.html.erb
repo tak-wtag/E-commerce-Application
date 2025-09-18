@@ -1,0 +1,30 @@
+<div class="container mt-5" style="max-width: 720px;">
+  <h1 class="display-5 fw-bold mb-4">Welcome To our Application</h1>
+  <% if current_user %>
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <p class="fs-5">Hello, <%= current_user.username %>!</p>
+        <p class="text-muted">Email: <%= current_user.email %></p>
+        <p class="mt-2">Your account is <%= current_user.verified? ? 'verified' : 'not verified' %>.</p>
+        
+        <% if !current_user.verified? %>
+          <div class="alert alert-warning mt-4">
+            Your account is not verified. Check your email to complete the setup.
+          </div>
+        <% end %>
+        
+        <%= button_to "Log Out", logout_path, method: :delete, class: "btn btn-danger mt-4" %>
+      </div>
+    </div>
+  <% else %>
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <p class="fs-5">Please sign up or log in to continue.</p>
+        <div class="mt-4 d-flex gap-2">
+          <%= link_to "Sign Up", signup_path, class: "btn btn-primary" %>
+          <%= link_to "Log In", login_path, class: "btn btn-success" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
